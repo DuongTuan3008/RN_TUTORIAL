@@ -8,28 +8,30 @@ import RegisterScreen from '../screens/auth/RegisterScreen';
 import ForgotPasswordScreen from '../screens/auth/ForgotPasswordScreen';
 import HomeScreen from '../screens/HomeScreen';
 import UserScreen from '../screens/UserScreen';
-import I18n from '../i18n/i18n';
-import * as theme from "../constants/Theme";
+import { SCREEN_ROUTER } from '@constant'
+import R from '@R';
+import * as theme from "@theme";
+
 import {
     Image
 } from "react-native";
 const TabBarComponent = props => <BottomTabBar {...props} />;
 
 const Auth = createStackNavigator({
-    Login: LoginScreen,
-    Register: RegisterScreen,
-    ForgotPassword: ForgotPasswordScreen
+    [SCREEN_ROUTER.LOGIN]: LoginScreen,
+    [SCREEN_ROUTER.REGISTER]: RegisterScreen,
+    [SCREEN_ROUTER.FORGOT_PASS]: ForgotPasswordScreen
 })
 
 
 const tabbarIcons = {
-    Home: require("../assets/images/ic_home.png"),
-    User: require("../assets/images/ic_user.png"),
+    [SCREEN_ROUTER.HOME]: R.images.home,
+    [SCREEN_ROUTER.USER]: R.images.user,
 };
 
 const getTabBarIcon = (navigation, focused, tintColor) => {
     const { routeName } = navigation.state;
-    const iconSource = tabbarIcons[routeName] || require("../assets/images/ic_home.png");
+    const iconSource = tabbarIcons[routeName] || R.images.home;
     const iconSize = focused ? 25 : 22;
     return (
         <Image
@@ -42,18 +44,18 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
 
 const Main = createBottomTabNavigator(
     {
-        Home: {
+        [SCREEN_ROUTER.HOME]: {
             screen: HomeScreen,
-            title: I18n.t("home"),
+            title: R.strings.home,
             navigationOptions: {
-                tabBarLabel: I18n.t("home"),
+                tabBarLabel: R.strings.home,
             },
         },
-        User: {
+        [SCREEN_ROUTER.USER]: {
             screen: UserScreen,
-            title: I18n.t("user"),
+            title: R.strings.user,
             navigationOptions: {
-                tabBarLabel: I18n.t("user"),
+                tabBarLabel: R.strings.user,
             },
         },
     },
@@ -80,7 +82,7 @@ const Main = createBottomTabNavigator(
                 />
             );
         },
-        initialRouteName :  'User'
+        initialRouteName: 'User'
     }
 
 )
@@ -88,12 +90,12 @@ const Main = createBottomTabNavigator(
 
 export default createAppContainer(
     createSwitchNavigator({
-        AuthLoading: AuthLoadingScreen,
-        Auth: Auth,
-        Main: Main
+        [SCREEN_ROUTER.AUTH_LOADING]: AuthLoadingScreen,
+        [SCREEN_ROUTER.AUTH]: Auth,
+        [SCREEN_ROUTER.MAIN]: Main
     },
         {
-            initialRouteName: 'Main'
+            initialRouteName: SCREEN_ROUTER.MAIN
         }
     )
 )
