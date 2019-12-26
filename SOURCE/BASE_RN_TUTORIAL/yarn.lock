@@ -3279,6 +3279,11 @@ hermes-engine@^0.2.1:
   resolved "https://registry.yarnpkg.com/hermes-engine/-/hermes-engine-0.2.1.tgz#25c0f1ff852512a92cb5c5cc47cf967e1e722ea2"
   integrity sha512-eNHUQHuadDMJARpaqvlCZoK/Nitpj6oywq3vQ3wCwEsww5morX34mW5PmKWQTO7aU0ck0hgulxR+EVDlXygGxQ==
 
+hjson@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/hjson/-/hjson-3.2.1.tgz#20de41dc87fc9a10d1557d0230b0e02afb1b09ac"
+  integrity sha512-OhhrFMeC7dVuA1xvxuXGTv/yTdhTvbe8hz+3LgVNsfi9+vgz0sF/RrkuX8eegpKaMc9cwYwydImBH6iePoJtdQ==
+
 hoist-non-react-statics@3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.2.1.tgz#c09c0555c84b38a7ede6912b61efddafd6e75e1e"
