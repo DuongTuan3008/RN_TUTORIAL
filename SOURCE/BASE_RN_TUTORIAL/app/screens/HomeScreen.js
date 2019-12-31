@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import DaiichiHeader from '~/components/DaiichiHeader';
 
 export default class HomeScreen extends Component {
     constructor(props) {
@@ -11,11 +12,11 @@ export default class HomeScreen extends Component {
     render() {
         return (
             <View style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center'
+                flex: 1
             }}>
-                <Text>RNCA Home </Text>
+               <DaiichiHeader
+                title = 'Trang chủ'
+               />
             </View>
         );
     }

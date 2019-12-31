@@ -4,40 +4,54 @@ import {
     View,
     SafeAreaView,
     Image,
-    StyleSheet
+    StyleSheet,
+    TouchableOpacity
 } from 'react-native'
 import R from '@R'
+import DaiichiHeader from '@component/DaiichiHeader';
+import NavigationUtil from '~/navigation/NavigationUtil';
 export default class UserScreen extends Component {
     render() {
         return (
-            <SafeAreaView
-                style={styles.container}>
-                <View style={styles.user_info_block}>
-                    <Image
-                        style={styles.profile_picture}
-                        source={R.images.ic_default_user}
-                    />
-                    <View style={styles.text_block_1}>
-                        <View style={styles.txt_name_and_agency}>
-                            <Text style={styles.txt_name} >
-                                Nguyễn Thị Thu Phương</Text>
-                            <Text style={styles.txt_agency}>
-                                Đại lý</Text>
+            <View style={styles.container}>
+                <DaiichiHeader
+                    title="Thông tin tài khoản"
+                />
+                <SafeAreaView
+                    style={styles.container}>
+                    <View style={styles.user_info_block}>
+                        <Image
+                            style={styles.profile_picture}
+                            source={R.images.ic_default_user}
+                        />
+                        <View style={styles.text_block_1}>
+                            <View style={styles.txt_name_and_agency}>
+                                <Text style={styles.txt_name} >
+                                    Nguyễn Thị Thu Phương</Text>
+                                <Text style={styles.txt_agency}>
+                                    Đại lý</Text>
+                            </View>
+                            <TouchableOpacity
+                                onPress = {()=>{
+                                    NavigationUtil.navigate('updateUserInfo')
+                                }}
+                            >
+                                <Text style={styles.txt_edit}>
+                                    Chỉnh sửa thông tin</Text>
+                            </TouchableOpacity>
                         </View>
-                        <Text style={styles.txt_edit}>
-                            Chỉnh sửa thông tin</Text>
                     </View>
-                </View>
-                <View style={styles.user_fuction_block}>
-                    {this._getFuncBlock("Đơn hàng", R.images.ic_order)}
-                    {this._getFuncBlock("Cửa hàng", R.images.ic_store)}
-                    {this._getFuncBlock("Lịch sử giao dịch", R.images.ic_transaction_history)}
-                    {this._getFuncBlock("Trở thành đại lý", R.images.ic_become_agency)}
-                    {this._getFuncBlock("Thông tin bảo hành", R.images.ic_warranty_info)}
-                    {this._getFuncBlock("Thông tin về Daiichi", R.images.ic_about_daiichi)}
-                    {this._getFuncBlock("Đăng xuất", R.images.ic_logout, true)}
-                </View>
-            </SafeAreaView>
+                    <View style={styles.user_fuction_block}>
+                        {this._getFuncBlock("Đơn hàng", R.images.ic_order)}
+                        {this._getFuncBlock("Cửa hàng", R.images.ic_store)}
+                        {this._getFuncBlock("Đơn hàng", require("../assets/images/ic_order.png"))}
+                        {this._getFuncBlock("Cửa hàng", require("../assets/images/ic_store.png"))}
+                        {this._getFuncBlock("Đơn hàng", require("../assets/images/ic_order.png"))}
+                        {this._getFuncBlock("Cửa hàng", require("../assets/images/ic_store.png"), true)}
+
+                    </View>
+                </SafeAreaView>
+            </View>
         )
     }
 
@@ -142,8 +156,17 @@ const styles = StyleSheet.create({
     line: {
         marginLeft: 30,
         marginRight: 27,
-        height: 1,
+        height: 2,
         backgroundColor: '#8B8B8B'
+    },
+    header: {
+        backgroundColor: "#12A74E"
+    },
+    haeder_title: {
+        fontSize: 18,
+        color: 'white',
+        // flex :1 ,
+        // backgroundColor : 'red'
     }
 })
 
