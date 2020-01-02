@@ -5,54 +5,97 @@ import {
     SafeAreaView,
     Image,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
+    ActivityIndicator
 } from 'react-native'
 import R from '@R'
 import DaiichiHeader from '@component/DaiichiHeader';
 import NavigationUtil from '~/navigation/NavigationUtil';
+import axios from 'axios'
+
 export default class UserScreen extends Component {
+
+    state = {
+        isLoading: true,
+        err: null,
+        data: {},
+    }
+
+    componentDidMount() {
+        this._getData()
+    }
+
+    _getData(){
+        console.log("Bắt đầu lấy dữ liệu từ api")
+        axios.get("http://winds.hopto.org:8521/api/Service/GetUserInfor", {
+            headers: {
+                token: 'C4AF9A7F154ACB2EEC2B0483D209D6B3'
+            }
+        }).then(response => {
+            console.log(response.data)
+            this.setState({
+                isLoading: false,
+                data: response.data.data
+            })
+        }).catch(err => {
+            console.log(err)
+            this.setState({
+                isLoading :false,
+                err : err
+            })
+        })
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <DaiichiHeader
                     title="Thông tin tài khoản"
                 />
-                <SafeAreaView
-                    style={styles.container}>
-                    <View style={styles.user_info_block}>
-                        <Image
-                            style={styles.profile_picture}
-                            source={R.images.ic_default_user}
-                        />
-                        <View style={styles.text_block_1}>
-                            <View style={styles.txt_name_and_agency}>
-                                <Text style={styles.txt_name} >
-                                    Nguyễn Thị Thu Phương</Text>
-                                <Text style={styles.txt_agency}>
-                                    Đại lý</Text>
-                            </View>
-                            <TouchableOpacity
-                                onPress = {()=>{
-                                    NavigationUtil.navigate('updateUserInfo')
-                                }}
-                            >
-                                <Text style={styles.txt_edit}>
-                                    Chỉnh sửa thông tin</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <View style={styles.user_fuction_block}>
-                        {this._getFuncBlock("Đơn hàng", R.images.ic_order)}
-                        {this._getFuncBlock("Cửa hàng", R.images.ic_store)}
-                        {this._getFuncBlock("Đơn hàng", require("../assets/images/ic_order.png"))}
-                        {this._getFuncBlock("Cửa hàng", require("../assets/images/ic_store.png"))}
-                        {this._getFuncBlock("Đơn hàng", require("../assets/images/ic_order.png"))}
-                        {this._getFuncBlock("Cửa hàng", require("../assets/images/ic_store.png"), true)}
-
-                    </View>
-                </SafeAreaView>
+                {this._renderBody()}
             </View>
         )
+    }
+
+    _renderBody() {
+        if (this.state.isLoading)
+            return (<ActivityIndicator />)
+        if (this.state.err)
+            return (<Text>Đã có lỗi xảy ra, vui lòng thử lại</Text>)
+        return(<SafeAreaView
+            style={styles.container}>
+            <View style={styles.user_info_block}>
+                <Image
+                    style={styles.profile_picture}
+                    source={R.images.ic_default_user}
+                />
+                <View style={styles.text_block_1}>
+                    <View style={styles.txt_name_and_agency}>
+                        <Text style={styles.txt_name} >
+                            {this.state.data.customerName}</Text>
+                        <Text style={styles.txt_agency}>
+                            Đại lý</Text>
+                    </View>
+                    <TouchableOpacity
+                        onPress={() => {
+                            NavigationUtil.navigate('updateUserInfo')
+                        }}
+                    >
+                        <Text style={styles.txt_edit}>
+                            Chỉnh sửa thông tin</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <View style={styles.user_fuction_block}>
+                {this._getFuncBlock("Đơn hàng", R.images.ic_order)}
+                {this._getFuncBlock("Cửa hàng", R.images.ic_store)}
+                {this._getFuncBlock("Đơn hàng", require("../assets/images/ic_order.png"))}
+                {this._getFuncBlock("Cửa hàng", require("../assets/images/ic_store.png"))}
+                {this._getFuncBlock("Đơn hàng", require("../assets/images/ic_order.png"))}
+                {this._getFuncBlock("Cửa hàng", require("../assets/images/ic_store.png"), true)}
+
+            </View>
+        </SafeAreaView>)    
     }
 
     // ham tra ve 1 view (function block)

@@ -26,13 +26,13 @@ const Auth = createStackNavigator({
 
 
 const tabbarIcons = {
-    [SCREEN_ROUTER.HOME]: R.images.home,
-    [SCREEN_ROUTER.USER]: R.images.user,
+    [SCREEN_ROUTER.HOME]: R.images.ic_home,
+    [SCREEN_ROUTER.USER]: R.images.ic_user,
 };
 
 const getTabBarIcon = (navigation, focused, tintColor) => {
     const { routeName } = navigation.state;
-    const iconSource = tabbarIcons[routeName] || R.images.home;
+    const iconSource = tabbarIcons[routeName] || R.images.ic_home;
     const iconSize = focused ? 25 : 22;
     return (
         <Image
@@ -52,23 +52,23 @@ const Main = createBottomTabNavigator(
                 tabBarLabel: R.strings.home,
             },
         },
-        [SCREEN_ROUTER.USER]: createStackNavigator ({
-            user : {
+        [SCREEN_ROUTER.USER]: createStackNavigator({
+            user: {
                 screen: UserScreen,
                 title: R.strings.user,
                 navigationOptions: {
                     tabBarLabel: R.strings.user,
                 },
             },
-            updateUserInfo : {
+            updateUserInfo: {
                 screen: UpdateUserInfo,
             }
         },
-        {
-            defaultNavigationOptions: {
-                header: null,
+            {
+                defaultNavigationOptions: {
+                    header: null,
+                },
             },
-        }
         ),
     },
     {
@@ -94,6 +94,7 @@ const Main = createBottomTabNavigator(
                 />
             );
         },
+        
         initialRouteName: 'User'
     }
 

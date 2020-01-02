@@ -14,9 +14,9 @@ export default class HomeScreen extends Component {
             <View style={{
                 flex: 1
             }}>
-               <DaiichiHeader
-                title = 'Trang chủ'
-               />
+                <DaiichiHeader
+                    title='Trang chủ'
+                />
             </View>
         );
     }
